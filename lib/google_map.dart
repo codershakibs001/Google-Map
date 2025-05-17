@@ -1,10 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:google_map_app/constants.dart';
+import 'package:google_map_integrate/constants.dart' show googleMapsApiKey;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+
 
 class GoogleMapPage extends StatefulWidget {
   const GoogleMapPage({super.key});
@@ -31,8 +30,8 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
 
   Future<void> initializeMap() async {
     await fetchLocationUpdates();
-    final coordinates = await fetchPolylinePoints();
-    generatePolyLineFromPoints(coordinates);
+    // final coordinates = await fetchPolylinePoints();
+    // generatePolyLineFromPoints(coordinates);
   }
 
   @override
@@ -97,24 +96,24 @@ class _GoogleMapPageState extends State<GoogleMapPage> {
     });
   }
 
-  Future<List<LatLng>> fetchPolylinePoints() async {
-    final polylinePoints = PolylinePoints();
+  // Future<List<LatLng>> fetchPolylinePoints() async {
+  //   final polylinePoints = PolylinePoints();
 
-    final result = await polylinePoints.getRouteBetweenCoordinates(
-      googleMapsApiKey,
-      PointLatLng(googlePlex.latitude, googlePlex.longitude),
-      PointLatLng(mountainView.latitude, mountainView.longitude),
-    );
+  //   final result = await polylinePoints.getRouteBetweenCoordinates(
+  //     googleApiKey: googleMapsApiKey,
+  //     PointLatLng(googlePlex.latitude, googlePlex.longitude),
+  //     PointLatLng(mountainView.latitude, mountainView.longitude),
+  //   );
 
-    if (result.points.isNotEmpty) {
-      return result.points
-          .map((point) => LatLng(point.latitude, point.longitude))
-          .toList();
-    } else {
-      debugPrint(result.errorMessage);
-      return [];
-    }
-  }
+  //   if (result.points.isNotEmpty) {
+  //     return result.points
+  //         .map((point) => LatLng(point.latitude, point.longitude))
+  //         .toList();
+  //   } else {
+  //     debugPrint(result.errorMessage);
+  //     return [];
+  //   }
+  // }
 
   Future<void> generatePolyLineFromPoints(
       List<LatLng> polylineCoordinates) async {
